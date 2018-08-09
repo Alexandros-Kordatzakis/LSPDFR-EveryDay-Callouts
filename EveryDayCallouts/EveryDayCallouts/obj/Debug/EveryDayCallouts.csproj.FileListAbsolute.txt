@@ -1,0 +1,8 @@
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.csprojResolveAssemblyReference.cache
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.csproj.CoreCompileInputs.cache
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\Debug\EveryDayCallouts.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\Debug\EveryDayCallouts.pdb
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.pdb
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\Debug\Arrest Manager.xml
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\Debug\Traffic Policer.xml

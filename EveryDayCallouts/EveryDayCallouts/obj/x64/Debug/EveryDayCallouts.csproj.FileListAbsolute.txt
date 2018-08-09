@@ -1,0 +1,12 @@
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\EveryDayCallouts.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\EveryDayCallouts.pdb
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\Arrest Manager.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\LSPD First Response.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\RagePluginHookSDK.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\Traffic Policer.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\Arrest Manager.xml
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\bin\x64\Debug\Traffic Policer.xml
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\x64\Debug\EveryDayCallouts.csprojResolveAssemblyReference.cache
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\x64\Debug\EveryDayCallouts.csproj.CoreCompileInputs.cache
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\x64\Debug\EveryDayCallouts.dll
+C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\x64\Debug\EveryDayCallouts.pdb
