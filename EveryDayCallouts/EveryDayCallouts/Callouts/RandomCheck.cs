@@ -73,7 +73,7 @@ namespace EveryDayCallouts.Callouts {
 
             GangMemb2 = new Ped("CSB_Ramp_gang", SpawnPoint, 1f);
             GangMemb2.BlockPermanentEvents = true;
-            SuspectBlip2 = GangMemb2.AttachBlip();
+            SuspectBlip2 = GangMemb3.AttachBlip();
 
             GangMemb3 = new Ped("CSB_Ramp_gang", SpawnPoint, 1f);
             GangMemb3.BlockPermanentEvents = true;
@@ -98,6 +98,7 @@ namespace EveryDayCallouts.Callouts {
             calloutArea.Color = (System.Drawing.Color.Red);
             calloutArea.Alpha = 0.5f;
             calloutArea.EnableRoute(System.Drawing.Color.Yellow);
+
 
             Game.LogTrivial("(RandomCheck): All Peds' and Vehicles' actions loaded.");
 
@@ -161,7 +162,8 @@ namespace EveryDayCallouts.Callouts {
 
             CleanUp();
 
-            base.End();        }
+            base.End();
+        }
 
         public void CleanUp() {
 
@@ -190,11 +192,14 @@ namespace EveryDayCallouts.Callouts {
             }
             if (SuspectBlip2.Exists()) {
                 SuspectBlip2.Delete();
-            }            if (SuspectBlip3.Exists()) {
+            }
+            if (SuspectBlip3.Exists()) {
                 SuspectBlip3.Delete();
-            }            if (SuspectBlip4.Exists()) {
+            }
+            if (SuspectBlip4.Exists()) {
                 SuspectBlip4.Delete();
-            }            if (SuspectBlip5.Exists()) {
+            }
+            if (SuspectBlip5.Exists()) {
                 SuspectBlip5.Delete();
             }
             if (calloutArea.Exists()) {
@@ -207,3 +212,37 @@ namespace EveryDayCallouts.Callouts {
 
     }
 }
+
+
+/* 
+ TODO:  Add dialogues to the code in the files:  LostCow.cs, LostDog.cs, NakedPerson.cs
+
+ FIXME:  Check if NoNameSet send me a message on LCPDFR.com with how to use this code.    Then, implement this code to the files mentioned in TODO. 
+ 
+ private readonly List<string> dialogWithPed = new List<string>() {
+
+    "Officer: Hello sir! What happened?",
+    "Caller: Hello Officer, I have lost my pet and I want your help to find it.."
+    "Officer: Alright! Can I have some additional information please?"
+    "Caller: Sure! It's a ~y~White Cow~w~, with ~b~Brown~w~ marks."
+    "Officer: A COW ?!"
+    "Caller: Yes sir. A ~r~cow~w~."
+    "Officer: Well, I don't know how you lost a ~y~cow~w~, but I'm sure it will be ~b~easy~w~ to find it."
+}
+
+private int dialogWithPedIndex;
+
+if (!Game.IsKeyDown(Keys.Y)) return;
+
+if (dialogWithPedIndex < dialogWithPed.Count) {
+
+    Game.DisplaySubtitle(dialogWithPed[dialogWithPedIndex]);
+    dialogWithPedIndex++;
+}
+
+if (dialogWithPedIndex == 7) {
+
+}
+
+
+*/ 
