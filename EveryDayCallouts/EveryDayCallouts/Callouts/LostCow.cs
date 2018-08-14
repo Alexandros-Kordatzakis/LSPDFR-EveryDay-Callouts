@@ -29,6 +29,8 @@ namespace EveryDayCallouts.Callouts {
         bool helpForBlip;
 
         bool hasArrived;
+        bool IsSpeechFinished;
+
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -106,6 +108,37 @@ namespace EveryDayCallouts.Callouts {
                 Game.LogTrivial("(LostCow): Officer Arrived At Scene.");
                 Game.DisplayHelp("Press ~p~Y~w~ when you reach the ~y~Caller~w~ to talk with him.");
                 Game.LogTrivial("(LostCow): Game Help Message Displayed.");
+            }
+
+            if (!IsSpe﻿echFinished && Game.LocalPlayer.Character.DistanceTo(Owner.Position) < 8f) {
+
+                while (!Game.IsKeyDown(System.Windows.Forms.Keys.Y))
+                    GameFiber.Yield();
+
+
+                Owner.Tasks.Clear();
+                Owner.Tasks.StandStill(30000);
+
+                Game.DisplaySubtitle("~b~Officer~w~: Hello sir! What happened?", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: Hello Officer, I have lost my pet and I want your help to find it..", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Alright! Can I have some additional information please?", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: Sure! It's a ~y~White Cow~w~, with ~b~Brown~w~ marks.", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: A COW ?!", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~b~Owner~w~: Yes sir! A cow.", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Ok... Are you sure it's not ~b~~Brown~w~, with ~y~White~w~ marks?", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: Yes Officer!", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Well, I don't know how you lost a ~y~cow~w~, but I'm sure it will be ~b~easy~w~ to find it. ", 4000);
+                GameFiber.Wait(4500);
+                IsSpeechFinished = true;
+                GameFiber.Hibernate();
             }
 
         }

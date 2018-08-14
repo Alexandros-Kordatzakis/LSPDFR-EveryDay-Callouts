@@ -23,6 +23,7 @@ namespace EveryDayCallouts.Callouts {
         private Blip calloutArea;
         private LHandle Pursuit;
         bool hasArrived;
+        bool IsSpe﻿echFinished;
         private bool PursuitCreated = false;
 
 
@@ -94,6 +95,35 @@ namespace EveryDayCallouts.Callouts {
 
                 hasArrived = true;
                 Game.LogTrivial("(NakedPerson): Officer Arrived At Scene");       
+            }
+
+            if (!IsSpe﻿echFinished && Game.LocalPlayer.Character.DistanceTo(Suspect.Position) < 8f) {
+
+                while (!Game.IsKeyDown(System.Windows.Forms.Keys.Y))
+                    GameFiber.Yield();
+
+
+                Suspect.Tasks.Clear();
+                Suspect.Tasks.StandStill(30000);
+
+                Game.DisplaySubtitle("~b~Officer~w~: Hello sir! What is going on?", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Suspect~w~: I don't know anything officer. What's happening?", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: We got a call for an incident exposure on this exact location. Have you seen anyone? ", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: No officer, I'm sorry. As you can see, no one here is ~r~naked~w~.. It must be a fake call.", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Yes. That's what I think too. ", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~b~Officer~w~: Alright sir. Thank you for your time. Have a nice day!", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: Thank you ~b~Officer~w~! Also sorry for the fake call.. ", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Don't say that. Things like that happen all the time to us..", 4000);
+                GameFiber.Wait(4500);
+                IsSpeechFinished = true;
+                GameFiber.Hibernate();
             }
 
             if (PursuitCreated && !Functions.IsPursuitStillRunning(Pursuit)) {

@@ -214,35 +214,10 @@ namespace EveryDayCallouts.Callouts {
 }
 
 
-/* 
- TODO:  Add dialogues to the code in the files:  LostCow.cs, LostDog.cs, NakedPerson.cs
-
- FIXME:  Check if NoNameSet send me a message on LCPDFR.com with how to use this code.    Then, implement this code to the files mentioned in TODO. 
- 
- private readonly List<string> dialogWithPed = new List<string>() {
-
-    "Officer: Hello sir! What happened?",
-    "Caller: Hello Officer, I have lost my pet and I want your help to find it.."
-    "Officer: Alright! Can I have some additional information please?"
-    "Caller: Sure! It's a ~y~White Cow~w~, with ~b~Brown~w~ marks."
-    "Officer: A COW ?!"
-    "Caller: Yes sir. A ~r~cow~w~."
-    "Officer: Well, I don't know how you lost a ~y~cow~w~, but I'm sure it will be ~b~easy~w~ to find it."
-}
-
-private int dialogWithPedIndex;
-
-if (!Game.IsKeyDown(Keys.Y)) return;
-
-if (dialogWithPedIndex < dialogWithPed.Count) {
-
-    Game.DisplaySubtitle(dialogWithPed[dialogWithPedIndex]);
-    dialogWithPedIndex++;
-}
-
-if (dialogWithPedIndex == 7) {
-
-}
 
 
-*/ 
+
+
+
+
+

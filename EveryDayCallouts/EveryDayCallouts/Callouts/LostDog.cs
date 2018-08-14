@@ -26,6 +26,7 @@ namespace EveryDayCallouts.Callouts {
         private Vector3 PetsSpawnPoint;
         private Blip OwnersBlip;
         bool hasArrived;
+        bool IsSpe﻿echFinished;
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -106,6 +107,38 @@ namespace EveryDayCallouts.Callouts {
                 Game.DisplayHelp("Press ~p~Y~w~ when you reach the ~y~Caller~w~ to talk with him.");
                 Game.LogTrivial("(LostDog): Game Help Message Displayed.");
 
+            }
+
+            if (!IsSpe﻿echFinished &&  Game.LocalPlayer.Character.DistanceTo(Owner.Position) < 8f) {
+
+                while (!Game.IsKeyDown(System.Windows.Forms.Keys.Y))
+                    GameFiber.Yield();
+
+
+                Owner.Tasks.Clear();
+                Owner.Tasks.StandStill(30000);
+
+                Game.DisplaySubtitle("~b~Officer~w~: Hello sir! What happened?", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: Hello Officer, I have lost my pet and I want your help to find it..", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Alright! Can I have some additional information please?", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: Sure! It's a ~y~Brown Dog~w~", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Ok. Are you sure it's ~b~Brown~w~?", 4000);
+                GameFiber.Wait(4500);
+                Game.DisplaySubtitle("~o~Owner~w~: Yes Officer!", 3500);
+                GameFiber.Wait(4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Well, I will do my best to find your pet. I'm sure it will be ~b~easy~w~ to find it. ", 4000);
+                GameFiber.Wait(4500);
+                IsSpeechFinished = true;    
+                GameFiber.Hibernate();
+
+                GameFiber.Wait(2500);
+                Game.DisplayNotification("Search on the ~b~area~w~ to find the lost pet.");
+
+                // TODO:  Here add a "Game.Displayhelp("");" to write if the player need halp to find the pet. If user presses e.g. "A"  key, the Dogs blip will appear on his radar!!!
             }
 
         }
