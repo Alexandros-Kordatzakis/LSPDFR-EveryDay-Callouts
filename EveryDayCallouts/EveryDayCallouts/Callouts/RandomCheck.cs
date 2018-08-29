@@ -17,7 +17,7 @@ using System.Drawing;
 namespace EveryDayCallouts.Callouts {
 
     [CalloutInfo("RandomCheck", CalloutProbability.VeryHigh)]
-
+                                
     public class RandomCheck : Callout {
 
         private Ped GangMemb1;
@@ -73,7 +73,7 @@ namespace EveryDayCallouts.Callouts {
 
             GangMemb2 = new Ped("CSB_Ramp_gang", SpawnPoint, 1f);
             GangMemb2.BlockPermanentEvents = true;
-            SuspectBlip2 = GangMemb3.AttachBlip();
+            SuspectBlip2 = GangMemb2.AttachBlip();
 
             GangMemb3 = new Ped("CSB_Ramp_gang", SpawnPoint, 1f);
             GangMemb3.BlockPermanentEvents = true;

@@ -30,7 +30,7 @@ namespace EveryDayCallouts.Callouts {
 
         bool hasArrived;
         bool IsSpeechFinished;
-
+        bool OfficerFoundPet;
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -44,6 +44,7 @@ namespace EveryDayCallouts.Callouts {
             CalloutMessage = "Lost Pet(Testing)";
             CalloutPosition = OwnerSpawnPoint;
             hasArrived = false;
+            OfficerFoundPet = false;
             Game.LogTrivial("(LostCow): Callout Message Displayed.");
 
 
@@ -101,7 +102,7 @@ namespace EveryDayCallouts.Callouts {
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
                 End();
             }
-
+            
             if (Game.LocalPlayer.Character.DistanceTo(OwnersBlip.Position) <= 20f && !hasArrived) {
 
                 hasArrived = true;
@@ -131,15 +132,47 @@ namespace EveryDayCallouts.Callouts {
                 GameFiber.Wait(4500);
                 Game.DisplaySubtitle("~b~Owner~w~: Yes sir! A cow.", 3500);
                 GameFiber.Wait(4000);
-                Game.DisplaySubtitle("~b~Officer~w~: Ok... Are you sure it's not ~b~~Brown~w~, with ~y~White~w~ marks?", 4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Ok... Are you sure it's not ~b~Brown~w~, with ~y~White~w~ marks?", 4000);
                 GameFiber.Wait(4500);
                 Game.DisplaySubtitle("~o~Owner~w~: Yes Officer!", 3500);
                 GameFiber.Wait(4000);
                 Game.DisplaySubtitle("~b~Officer~w~: Well, I don't know how you lost a ~y~cow~w~, but I'm sure it will be ~b~easy~w~ to find it. ", 4000);
                 GameFiber.Wait(4500);
                 IsSpeechFinished = true;
-                GameFiber.Hibernate();
+
+                GameFiber.Wait(2500);
+                Game.DisplayNotification("Search on the ~b~area~w~ to find the lost pet.");
+                GameFiber.Wait(4000);
+                Game.DisplayHelp("For help, when you reach 15 meters close to the ~b~Pet~w~, his Blip will appear on your Radar.");
             }
+
+            // If Player(Officer) is 15m. close to the Pet, the Pet's Blip will be diplayed on Officer's Radar. (For help.)
+            if (!IsSpeechFinished && Game.LocalPlayer.Character.DistanceTo(Pet.Position) < 15f) {
+
+                PetsBlip = Pet.AttachBlip();
+                PetsBlip.Color = (System.Drawing.Color.Red);
+            }
+
+            // If Officer finds the Pet (<= 1m. from it), the Bool OfficerFoundPet = true  (as it was false until now.) 
+            // and will begin a short talk with Dispatcher. 
+            if (!IsSpeechFinished && Game.LocalPlayer.Character.DistanceTo(Pet.Position) <= 1f) {
+
+                OfficerFoundPet = true;
+                Game.LogTrivial("Officer found Pet.");
+
+                Game.DisplayNotification("Dispacth, I found the lost pet. Let the Owner know my location to come and take it.");
+                GameFiber.Wait(1000);
+                Functions.PlayScannerAudio("REPORT_RESPONSE_COPY");
+                Game.DisplayHelp("You can leave the scene now. Dispatch will take care of everything else.");
+            }
+
+            // Assuming that the Officer left the scene, when he is > 20m. away from it, a help message
+            // will appear to tell him to press END.  (So the CleanUp() func. will take place.)
+            if (OfficerFoundPet && Game.LocalPlayer.Character.DistanceTo(Pet.Position) > 20f) {
+
+                Game.DisplayHelp("You can press ~g~End~w~ now.");
+            }
+
 
         }
 
