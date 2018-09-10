@@ -27,8 +27,9 @@ namespace EveryDayCallouts.Callouts {
         private Blip OwnersBlip;
         private Blip PetsBlip;
         bool hasArrived;
-        bool IsSpe﻿echFinished;
-        bool OfficerFoundPet;
+        bool IsSpe﻿echFinished = false;
+        bool OfficerFoundPet = false;
+        bool OfficerFoundPetandLeftScene = false;
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -42,8 +43,8 @@ namespace EveryDayCallouts.Callouts {
             // Callout will be displayed now on screen.
             CalloutMessage = "Lost Dog(Testing)";
             CalloutPosition = OwnerSpawnPoint;
-            hasArrived = false;
-            OfficerFoundPet = false;
+
+            //OfficerFoundPet = false;
             Game.LogTrivial("(LostDog): Callout Message Displayed");
             // Callout Displayed and all Functions (like Logs or Booleans) are in action.
 
@@ -61,6 +62,7 @@ namespace EveryDayCallouts.Callouts {
             Functions.PlayScannerAudio("PTT");
             Functions.PlayScannerAudio("RESPOND_CODE_2");
             Functions.PlayScannerAudio("PTT");
+            hasArrived = false;
 
             Game.DisplayNotification("Respond ~b~Code 2~w~");
             Game.DisplayHelp("Press ~b~End~w~ to end the callout.");
@@ -120,7 +122,7 @@ namespace EveryDayCallouts.Callouts {
             }
 
             // Now it starts the Dialogue. If Player is < 8 meters from the Owner, Player can press "Y" and the dialogue will begin. 
-            if (!IsSpe﻿echFinished &&  Game.LocalPlayer.Character.DistanceTo(Owner.Position) < 8f) {
+            if (Game.LocalPlayer.Character.DistanceTo(Owner.Position) < 8f) {
 
                 while (!Game.IsKeyDown(System.Windows.Forms.Keys.Y))
                     GameFiber.Yield();
@@ -149,22 +151,22 @@ namespace EveryDayCallouts.Callouts {
                 GameFiber.Wait(2500);
                 Game.DisplayNotification("Search on the ~b~area~w~ to find the lost pet.");
                 GameFiber.Wait(4000);
-                Game.DisplayHelp("For help, when you reach 15 meters close to ~b~Chop~w~, his Blip will appear on your Radar.");
+                Game.DisplayHelp("For help, when you reach 20 meters close to ~b~Chop~w~, it's Blip will appear on your Radar.");
 
                 // TODO:  Here add a "Game.Displayhelp("");" to write if the player need help to find the pet. If user presses e.g. "A"  key, the Dogs blip will appear on his radar!!!
                 // TODO:  Or,  if the player go e.g. 10m near the per, to display him the blip.  DONE!
             }
 
-            // If Player(Officer) is 15m. close to the Pet, the Pet's Blip will be diplayed on Officer's Radar. (For help.)
-            if (!IsSpeechFinished && Game.LocalPlayer.Character.DistanceTo(Pet.Position) < 15f) {
+            // If Player(Officer) is 20m. close to the Pet, the Pet's Blip will be diplayed on Officer's Radar. (For help.)
+            if (!IsSpeechFinished && Game.LocalPlayer.Character.DistanceTo(Pet.Position) < 20f) {
 
                 PetsBlip = Pet.AttachBlip();
-                PetsBlip.Color = (System.Drawing.Color.Red);
+                PetsBlip.Color = (System.Drawing.Color.Blue);
             }
 
-            // If Officer finds the Pet (<= 1m. from it), the Bool OfficerFoundPet = true  (as it was false until now.) 
+            // If Officer finds the Pet (<= 5m. from it), the Bool OfficerFoundPet = true  (as it was false until now.) 
             // and will begin a short talk with Dispatcher. 
-            if (!IsSpeechFinished && Game.LocalPlayer.Character.DistanceTo(Pet.Position) <= 1f) {
+            if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(Pet.Position) <= 5f) {
 
                 OfficerFoundPet = true;
                 Game.LogTrivial("Officer found Pet.");
@@ -177,7 +179,7 @@ namespace EveryDayCallouts.Callouts {
 
             // Assuming that the Officer left the scene, when he is > 20m. away from it, a help message
             // will appear to tell him to press END.  (So the CleanUp() func. will take place.)
-            if (OfficerFoundPet && Game.LocalPlayer.Character.DistanceTo(Pet.Position) > 20f) {
+            if (OfficerFoundPet = true && Game.LocalPlayer.Character.DistanceTo(Pet.Position) > 20f) {
 
                 Game.DisplayHelp("You can press ~g~End~w~ now.");
             }
@@ -203,8 +205,6 @@ namespace EveryDayCallouts.Callouts {
                 OwnersBlip.Delete();
             }
 
-            Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-            Game.DisplayNotification("All units, we are ~g~Code 4~w~");
         }
 
     }

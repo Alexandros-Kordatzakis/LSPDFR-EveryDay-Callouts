@@ -106,7 +106,7 @@ namespace EveryDayCallouts.Callouts {
                 Suspect.Tasks.Clear();
                 Suspect.Tasks.StandStill(30000);
 
-                Game.DisplaySubtitle("~b~Officer~w~: Hello sir! What is going on?", 4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Hello! What's going on?", 4000);
                 GameFiber.Wait(4500);
                 Game.DisplaySubtitle("~o~Suspect~w~: I don't know anything officer. What's happening?", 3500);
                 GameFiber.Wait(4000);
@@ -116,7 +116,7 @@ namespace EveryDayCallouts.Callouts {
                 GameFiber.Wait(4000);
                 Game.DisplaySubtitle("~b~Officer~w~: Yes. That's what I think too. ", 4000);
                 GameFiber.Wait(4500);
-                Game.DisplaySubtitle("~b~Officer~w~: Alright sir. Thank you for your time. Have a nice day!", 4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Alright. Thank you for your time. Have a nice day!", 4000);
                 GameFiber.Wait(4500);
                 Game.DisplaySubtitle("~o~Suspect~w~: Thank you ~b~Officer~w~! Take care!", 3500);
                 GameFiber.Wait(4000);
@@ -149,8 +149,6 @@ namespace EveryDayCallouts.Callouts {
                 calloutArea.Delete();
             }
 
-            Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-            Game.DisplayNotification("All units, we are ~g~Code 4~w~");
         }
 
     }

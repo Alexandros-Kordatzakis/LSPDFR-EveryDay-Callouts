@@ -30,14 +30,14 @@ namespace EveryDayCallouts {
             if (OnDuty) {
 
                 RegisterCallouts();
-                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.09.3~w~ loaded successfully! By ~g~Alexander K.~w~");
+                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.09.5~w~ loaded successfully! By ~g~Alexander K.~w~");
             }
         }
 
         private static void RegisterCallouts() {
 
-            Functions.RegisterCallout(typeof(Callouts.RandomCheck));
             Functions.RegisterCallout(typeof(Callouts.LostDog));
+            Functions.RegisterCallout(typeof(Callouts.RandomCheck));
             Functions.RegisterCallout(typeof(Callouts.LostCow));
             Functions.RegisterCallout(typeof(Callouts.NakedPerson));
         }

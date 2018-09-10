@@ -137,7 +137,8 @@ namespace EveryDayCallouts.Callouts {
             if (!PursuitCreated && Game.LocalPlayer.Character.DistanceTo(GangMemb1.Position) <= 15f) {
 
 
-                GangMemb2.PlayAmbientSpeech("Run! Its the police!");
+                GangMemb2.PlayAmbientSpeech("Run! It's the police!");
+                Game.DisplaySubtitle("~r~Gang Member:~w~ Run! It's the police!");
                 Pursuit = Functions.CreatePursuit();
                 Functions.AddPedToPursuit(Pursuit, GangMemb1);
                 Functions.AddPedToPursuit(Pursuit, GangMemb2);
@@ -183,10 +184,9 @@ namespace EveryDayCallouts.Callouts {
                 GangMemb5.Dismiss();
             }
 
-            //            if (SuspectsVehicle.Exists()) {
-            //                SuspectsVehicle.Dismiss();         ///// Not mandatory.
-            //            }
-
+/*          if (SuspectsVehicle.Exists()) {
+                SuspectsVehicle.Dismiss();         ///// Not mandatory.
+            }  */
             if (SuspectBlip1.Exists()) {
                 SuspectBlip1.Delete();
             }
@@ -206,8 +206,6 @@ namespace EveryDayCallouts.Callouts {
                 calloutArea.Delete();
             }
 
-            Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-            Game.DisplayNotification("All units, we are ~g~Code 4~w~");
         }
 
     }
