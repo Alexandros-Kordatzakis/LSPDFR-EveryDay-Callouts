@@ -121,6 +121,9 @@ namespace EveryDayCallouts.Callouts {
                 Game.DisplaySubtitle("~o~Suspect~w~: Thank you ~b~Officer~w~! Take care!", 3500);
                 GameFiber.Wait(4000);
                 IsSpeechFinished = true;
+
+                GameFiber.Wait(4500);
+                Game.DisplayHelp("You can now press ~b~END~w~ to become ~g~Code 4~w~.");
             }
 
             if (PursuitCreated && !Functions.IsPursuitStillRunning(Pursuit)) {

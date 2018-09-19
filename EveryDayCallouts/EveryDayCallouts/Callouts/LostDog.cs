@@ -65,23 +65,26 @@ namespace EveryDayCallouts.Callouts {
             hasArrived = false;
 
             Game.DisplayNotification("Respond ~b~Code 2~w~");
-            Game.DisplayHelp("Press ~b~End~w~ to end the callout.");
-            Game.DisplayNotification("Go on ~p~scene~w~ and try to find the ~p~lost~w~ pet from the owners info.");
+            Game.DisplayHelp("Press ~b~End~w~ to end the callout.", 5000);
+            Game.DisplaySubtitle("Go on ~p~scene~w~ and try to find the ~p~lost~w~ pet from the owners info.");
 
             // Making new Ped and it's Blip.
             Owner = new Ped(OwnerSpawnPoint);
             Owner.BlockPermanentEvents = true;
             OwnersBlip = Owner.AttachBlip();
             OwnersBlip.Color = (System.Drawing.Color.Yellow);
+            OwnersBlip.EnableRoute(Color.Green);
 
-            // Making new Pet. No Blip until now, because we want the player not to know where the Pet is. 
+
+            // Making new Pet.
             Pet = new Ped("A_C_Chop", PetsSpawnPoint, 1f);
             Pet.BlockPermanentEvents = true;
+            PetsBlip = Pet.AttachBlip();
+            PetsBlip.Color = (System.Drawing.Color.Blue);
 
 
             OwnersBlip.IsFriendly = true;
-
-            OwnersBlip.EnableRoute(Color.Green);
+            PetsBlip.IsFriendly = true;
 
 
             Game.LogTrivial("(LostDog): Owners And Pets actions loaded.");
@@ -157,12 +160,6 @@ namespace EveryDayCallouts.Callouts {
                 // TODO:  Or,  if the player go e.g. 10m near the per, to display him the blip.  DONE!
             }
 
-            // If Player(Officer) is 20m. close to the Pet, the Pet's Blip will be diplayed on Officer's Radar. (For help.)
-            if (!IsSpeechFinished && Game.LocalPlayer.Character.DistanceTo(Pet.Position) < 20f) {
-
-                PetsBlip = Pet.AttachBlip();
-                PetsBlip.Color = (System.Drawing.Color.Blue);
-            }
 
             // If Officer finds the Pet (<= 5m. from it), the Bool OfficerFoundPet = true  (as it was false until now.) 
             // and will begin a short talk with Dispatcher. 
@@ -171,6 +168,8 @@ namespace EveryDayCallouts.Callouts {
                 OfficerFoundPet = true;
                 Game.LogTrivial("Officer found Pet.");
 
+                Functions.PlayScannerAudio("PTT");
+                GameFiber.Wait(1000);
                 Game.DisplayNotification("Dispacth, I found the lost pet. Let the Owner know my location to come and take it.");
                 GameFiber.Wait(1000);
                 Functions.PlayScannerAudio("REPORT_RESPONSE_COPY");

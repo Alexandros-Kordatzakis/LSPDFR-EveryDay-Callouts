@@ -25,6 +25,9 @@ namespace EveryDayCallouts.Callouts {
         private Ped GangMemb3;
         private Ped GangMemb4;
         private Ped GangMemb5;
+        private Ped GangMemb6;
+        private Ped GangMemb7;
+        private Ped GangMemb8;
         private Vehicle SuspectsVehicle;
         private Vector3 SpawnPoint;
         private Blip SuspectBlip1;
@@ -32,6 +35,9 @@ namespace EveryDayCallouts.Callouts {
         private Blip SuspectBlip3;
         private Blip SuspectBlip4;
         private Blip SuspectBlip5;
+        private Blip SuspectBlip6;
+        private Blip SuspectBlip7;
+        private Blip SuspectBlip8;
         private Blip calloutArea;
         private LHandle Pursuit;
         bool hasArrived;
@@ -83,9 +89,21 @@ namespace EveryDayCallouts.Callouts {
             GangMemb4.BlockPermanentEvents = true;
             SuspectBlip4 = GangMemb4.AttachBlip();
 
-            GangMemb5 = new Ped("CSB_Ramp_gang", SpawnPoint, 1f);
+            GangMemb5 = new Ped("IG_RAMP_GANG", SpawnPoint, 1f);
             GangMemb5.BlockPermanentEvents = true;
             SuspectBlip5 = GangMemb5.AttachBlip();
+
+            GangMemb6 = new Ped("CSB_BallasOG", SpawnPoint, 3f);
+            GangMemb6.BlockPermanentEvents = true;
+            SuspectBlip6 = GangMemb6.AttachBlip();
+
+            GangMemb7 = new Ped("CSB_BallasOG", SpawnPoint, 4f);
+            GangMemb7.BlockPermanentEvents = true;
+            SuspectBlip7 = GangMemb7.AttachBlip();
+
+            GangMemb8 = new Ped("CSB_Ramp_gang", SpawnPoint, 8f);
+            GangMemb8.BlockPermanentEvents = true;
+            SuspectBlip8 = GangMemb8.AttachBlip();
 
 
             SuspectBlip1.IsFriendly = false;
@@ -93,6 +111,9 @@ namespace EveryDayCallouts.Callouts {
             SuspectBlip3.IsFriendly = false;
             SuspectBlip4.IsFriendly = false;
             SuspectBlip5.IsFriendly = false;
+            SuspectBlip6.IsFriendly = false;
+            SuspectBlip7.IsFriendly = false;
+            SuspectBlip8.IsFriendly = false;
 
             calloutArea = new Blip(SpawnPoint, 40f);
             calloutArea.Color = (System.Drawing.Color.Red);
@@ -138,13 +159,83 @@ namespace EveryDayCallouts.Callouts {
 
 
                 GangMemb2.PlayAmbientSpeech("Run! It's the police!");
-                Game.DisplaySubtitle("~r~Gang Member:~w~ Run! It's the police!");
+                Game.DisplaySubtitle("~r~Gang Member:~w~ Run! It's the police!", 2000);
                 Pursuit = Functions.CreatePursuit();
                 Functions.AddPedToPursuit(Pursuit, GangMemb1);
+                GangMemb1.Tasks.FightAgainst(Game.LocalPlayer.Character);
                 Functions.AddPedToPursuit(Pursuit, GangMemb2);
+                GangMemb2.Tasks.FightAgainst(Game.LocalPlayer.Character);
                 Functions.AddPedToPursuit(Pursuit, GangMemb3);
+                GangMemb3.Tasks.FightAgainst(Game.LocalPlayer.Character);
                 Functions.AddPedToPursuit(Pursuit, GangMemb4);
+                GangMemb4.Tasks.FightAgainst(Game.LocalPlayer.Character);
                 Functions.AddPedToPursuit(Pursuit, GangMemb5);
+                GangMemb5.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                Functions.AddPedToPursuit(Pursuit, GangMemb6);
+                GangMemb6.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                Functions.AddPedToPursuit(Pursuit, GangMemb7);
+                GangMemb7.Tasks.AimWeaponAt(Game.LocalPlayer.Character, 10000);
+                Functions.AddPedToPursuit(Pursuit, GangMemb8);
+                GangMemb8.Tasks.FightAgainst(Game.LocalPlayer.Character);
+
+
+                if (Functions.IsPedArrested(GangMemb1)) {
+                    GangMemb1.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb1)) {
+                    GangMemb1.Tasks.ClearImmediately(); 
+                }
+                
+                if (Functions.IsPedArrested(GangMemb2)) {
+                    GangMemb2.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb2)) {
+                    GangMemb2.Tasks.ClearImmediately();
+                }
+
+                if (Functions.IsPedArrested(GangMemb3)) {
+                    GangMemb3.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb3)) {
+                    GangMemb3.Tasks.ClearImmediately();
+                }
+
+                if (Functions.IsPedArrested(GangMemb4)) {
+                    GangMemb4.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb4)) {
+                    GangMemb4.Tasks.ClearImmediately();
+                }
+
+                if (Functions.IsPedArrested(GangMemb5)) {
+                    GangMemb5.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb5)) {
+                    GangMemb5.Tasks.ClearImmediately();
+                }
+
+                if (Functions.IsPedArrested(GangMemb6)) {
+                    GangMemb6.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb6)) {
+                    GangMemb6.Tasks.ClearImmediately();
+                }
+
+                if (Functions.IsPedArrested(GangMemb7)) {
+                    GangMemb7.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb7)) {
+                    GangMemb7.Tasks.ClearImmediately();
+                }
+
+                if (Functions.IsPedArrested(GangMemb8)) {
+                    GangMemb8.Tasks.ClearImmediately();
+                }
+                if (Functions.IsPedStoppedByPlayer(GangMemb8)) {
+                    GangMemb8.Tasks.ClearImmediately();
+                }
+
+
                 Functions.SetPursuitIsActiveForPlayer(Pursuit, true);
                 PursuitCreated = true;
 
@@ -167,7 +258,7 @@ namespace EveryDayCallouts.Callouts {
         }
 
         public void CleanUp() {
-
+/*
             if (GangMemb1.Exists()) {
                 GangMemb1.Dismiss();
             }
@@ -183,8 +274,17 @@ namespace EveryDayCallouts.Callouts {
             if (GangMemb5.Exists()) {
                 GangMemb5.Dismiss();
             }
+            if (GangMemb6.Exists()) {
+                GangMemb6.Dismiss();
+            }
+            if (GangMemb7.Exists()) {
+                GangMemb7.Dismiss();
+            }
+            if (GangMemb8.Exists()) {
+                GangMemb8.Dismiss();
+            }
 
-/*          if (SuspectsVehicle.Exists()) {
+            if (SuspectsVehicle.Exists()) {
                 SuspectsVehicle.Dismiss();         ///// Not mandatory.
             }  */
             if (SuspectBlip1.Exists()) {
@@ -202,6 +302,18 @@ namespace EveryDayCallouts.Callouts {
             if (SuspectBlip5.Exists()) {
                 SuspectBlip5.Delete();
             }
+            if (SuspectBlip6.Exists())
+            {
+                SuspectBlip6.Delete();
+            }
+            if (SuspectBlip7.Exists())
+            {
+                SuspectBlip7.Delete();
+            }
+            if (SuspectBlip8.Exists())
+            {
+                SuspectBlip8.Delete();
+            }
             if (calloutArea.Exists()) {
                 calloutArea.Delete();
             }
@@ -216,6 +328,6 @@ namespace EveryDayCallouts.Callouts {
 
 
 
-
+                
 
 

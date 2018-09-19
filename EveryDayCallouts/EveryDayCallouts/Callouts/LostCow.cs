@@ -59,7 +59,7 @@ namespace EveryDayCallouts.Callouts {
             hasArrived = false;
 
             Game.DisplayNotification("Respond ~b~Code 2~w~");
-            Game.DisplayHelp("Press ~b~End~w~ to end the callout.");
+            Game.DisplayHelp("Press ~b~End~w~ to end the callout.", 5000);
             Game.DisplayNotification("Go on ~p~scene~w~ and try to find the ~p~lost~w~ pet from the owners info.");
             Game.LogTrivial("(LostCow): Callout Accepted.");
 
@@ -67,15 +67,18 @@ namespace EveryDayCallouts.Callouts {
             Owner.BlockPermanentEvents = true;
             OwnersBlip = Owner.AttachBlip();
             OwnersBlip.Color = (System.Drawing.Color.Green);
+            OwnersBlip.EnableRoute(Color.Green);
 
 
             Pet = new Ped("A_C_Cow", PetsSpawnPoint, 1f);
             Pet.BlockPermanentEvents = true;
+            PetsBlip = Pet.AttachBlip();
+            PetsBlip.Color = (System.Drawing.Color.Blue);
 
 
             OwnersBlip.IsFriendly = true;
+            PetsBlip.IsFriendly = true;
 
-            OwnersBlip.EnableRoute(Color.Green);
 
             Game.LogTrivial("(LostCow): All Owners And Ped Actions Loaded!");
 
@@ -145,35 +148,25 @@ namespace EveryDayCallouts.Callouts {
                 Game.DisplayHelp("For help, when you reach 20 meters close to the ~b~Pet~w~, it's Blip will appear on your Radar.");
             }
 
-            // If Player(Officer) is 20m. close to the Pet, the Pet's Blip will be diplayed on Officer's Radar. (For help.)
-            if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(Pet.Position) < 20f) {
 
-                PetsBlip = Pet.AttachBlip();
-                PetsBlip.Color = (System.Drawing.Color.Blue);
-            }
 
             // If Officer finds the Pet (<= 5m. from it), the Bool OfficerFoundPet = true  (as it was false until now.) 
             // and will begin a short talk with Dispatcher. 
             if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(Pet.Position) <= 5f) {
 
                 OfficerFoundPet = true;
+                Game.LogTrivial("(Lost Cow) Officer found pet = true");
                 Game.LogTrivial("Officer found Pet.");
 
+                Functions.PlayScannerAudio("PTT");
+                GameFiber.Wait(1000);
                 Game.DisplayNotification("Dispacth, I found the lost pet. Let the Owner know my location to come and take it.");
                 GameFiber.Wait(1000);
                 Functions.PlayScannerAudio("REPORT_RESPONSE_COPY");
                 Game.DisplayHelp("You can leave the scene now. Dispatch will take care of everything else.");
+                GameFiber.Wait(5000);
+                Game.DisplayHelp("You can press ~b~END~w~ now. Good Job officer!");
             }
-
-
-            // Assuming that the Officer left the scene, when he is > 20m. away from it, a help message
-            // will appear to tell him to press END.  (So the CleanUp() func. will take place.)
-            if (OfficerFoundPet = true && Game.LocalPlayer.Character.DistanceTo(Pet.Position) > 20f) {
-
-                Game.DisplayHelp("You can press ~g~End~w~ now.");
-            }
-
-
         }
 
         public override void End() {
@@ -195,6 +188,10 @@ namespace EveryDayCallouts.Callouts {
             if (OwnersBlip.Exists()) {
                 OwnersBlip.Delete();
             }
+            if (PetsBlip.Exists()) {
+                PetsBlip.Delete();
+            }
+
         }
 
     }
