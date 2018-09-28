@@ -36,9 +36,14 @@ namespace EveryDayCallouts.Callouts {
             CalloutMessage = "Naked Person(Testing)";
             CalloutPosition = SpawnPoint;
             hasArrived = false;
-            Game.LogTrivial("(NakedPerson): Callout Message Displayed");        
+            Game.LogTrivial("(NakedPerson): Callout Message Displayed");
 
+            Functions.PlayScannerAudio("PTT");
+            GameFiber.Wait(500);
             Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_INDECENT_EXPOSURE IN_OR_ON_POSITION", SpawnPoint);
+            GameFiber.Wait(500);
+            Functions.PlayScannerAudio("END_3DPRT_PTT");
+
 
             return base.OnBeforeCalloutDisplayed();
         }
@@ -48,12 +53,25 @@ namespace EveryDayCallouts.Callouts {
             Game.LogTrivial("(NakedPerson): Callout Accepted");
 
             Functions.PlayScannerAudio("PTT");
+            GameFiber.Wait(1000);
             Functions.PlayScannerAudio("RESPOND_CODE_2");
-            Functions.PlayScannerAudio("PTT");
+            GameFiber.Wait(500);
+            Functions.PlayScannerAudio("END_3DPRT_PTT");
 
+            GameFiber.Wait(1000);
+            Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayNotification("Respond ~b~Code 2~w~");
-            Game.DisplayHelp("Press ~b~End~w~ to end the callout.");
+
+            GameFiber.Wait(2500);
+            Functions.PlayScannerAudio("NOTIF_SOUND");
+            Game.DisplayHelp("Press ~b~End~w~ to forcefully end the callout.", 5000);
+
+            GameFiber.Wait(1000);
+            Functions.PlayScannerAudio("NOTIF_SOUND");
+            GameFiber.Wait(500);
             Game.DisplayNotification("Go on ~p~scene~w~ and try to ~g~speak~w~ with the suspect.");
+            GameFiber.Wait(5500);
+            Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayHelp("If it's a ~r~fake call~w~, just press ~b~End~w~ ");
 
             Suspect = new Ped(SpawnPoint);
@@ -85,16 +103,26 @@ namespace EveryDayCallouts.Callouts {
 
             if (Game.IsKeyDown(System.Windows.Forms.Keys.End)) {
 
-                Game.DisplayNotification("~g~Code 4~w~, return to patrol.~b~(Back 10-8)~w~");
+                Game.LogTrivial("(Naked Person): Callout ENDED. User pressed END.");
+
+                Functions.PlayScannerAudio("NOTIF_SOUND");
+                Game.DisplayNotification("~g~Code 4~w~, return to patrol.");
+                GameFiber.Wait(500);
+                Functions.PlayScannerAudio("PTT");
+                GameFiber.Wait(500);
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-                Game.LogTrivial("(NakedPerson): Officer Pressed END button.  Callout canceled.");      
+                GameFiber.Wait(500);
+                Functions.PlayScannerAudio("END_3DPRT_PTT");
                 End();
             }
 
             if (Game.LocalPlayer.Character.DistanceTo(Suspect.Position) <= 20f && !hasArrived) {
 
                 hasArrived = true;
-                Game.LogTrivial("(NakedPerson): Officer Arrived At Scene");       
+                Game.LogTrivial("(NakedPerson): Officer Arrived At Scene");
+                Functions.PlayScannerAudio("NOTIF_SOUND");
+                Game.DisplayHelp("Press ~p~Y~w~ when you reach the ~y~Suspect~w~ to talk with him.");
+
             }
 
             if (!IsSpe﻿echFinished && Game.LocalPlayer.Character.DistanceTo(Suspect.Position) < 8f) {
@@ -123,7 +151,8 @@ namespace EveryDayCallouts.Callouts {
                 IsSpeechFinished = true;
 
                 GameFiber.Wait(4500);
-                Game.DisplayHelp("You can now press ~b~END~w~ to become ~g~Code 4~w~.");
+                Functions.PlayScannerAudio("NOTIF_SOUND");
+                Game.DisplayHelp("You can now press ~b~END~w~ to be ~g~Code 4~w~.");
             }
 
             if (PursuitCreated && !Functions.IsPursuitStillRunning(Pursuit)) {

@@ -65,10 +65,17 @@ namespace EveryDayCallouts.Callouts {
 
         public override bool OnCalloutAccepted() {
 
-//            Functions.PlayScannerAudio("PTT");
-//            Functions.PlayScannerAudio("RESPOND_CODE_2");
             Functions.PlayScannerAudio("PTT");
+            GameFiber.Wait(1000);
+            Functions.PlayScannerAudio("RESPOND_CODE_2");
+            GameFiber.Wait(500);
+            Functions.PlayScannerAudio("END_3DPRT_PTT");
+
+            GameFiber.Wait(1000);
+            Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayNotification("Respond ~b~Code 2~w~");
+            Game.DisplayHelp("Press ~b~End~w~ to end the callout.", 5000);
+
 
             SuspectsVehicle = new Vehicle("BURRITO", SpawnPoint, 1f);
             SuspectsVehicle.IsPersistent = true;
@@ -118,7 +125,7 @@ namespace EveryDayCallouts.Callouts {
             calloutArea = new Blip(SpawnPoint, 40f);
             calloutArea.Color = (System.Drawing.Color.Red);
             calloutArea.Alpha = 0.5f;
-            calloutArea.EnableRoute(System.Drawing.Color.Yellow);
+            calloutArea.EnableRoute(System.Drawing.Color.Blue);
 
 
             Game.LogTrivial("(RandomCheck): All Peds' and Vehicles' actions loaded.");
@@ -143,9 +150,14 @@ namespace EveryDayCallouts.Callouts {
 
                 Game.LogTrivial("(RandomCheck): If statement executed. User pressed END and canceled the callout.");
 
+                Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayNotification("~g~Code 4~w~, return to patrol.");
+                GameFiber.Wait(500);
+                Functions.PlayScannerAudio("PTT");
+                GameFiber.Wait(500);
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-
+                GameFiber.Wait(500);
+                Functions.PlayScannerAudio("END_3DPRT_PTT");
                 End();
             }
 
