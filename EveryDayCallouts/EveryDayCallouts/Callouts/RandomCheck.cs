@@ -17,7 +17,7 @@ using System.Drawing;
 namespace EveryDayCallouts.Callouts {
 
     [CalloutInfo("RandomCheck", CalloutProbability.VeryHigh)]
-                                
+
     public class RandomCheck : Callout {
 
         private Ped GangMemb1;
@@ -65,14 +65,11 @@ namespace EveryDayCallouts.Callouts {
 
         public override bool OnCalloutAccepted() {
 
-            Functions.PlayScannerAudio("PTT");
-            GameFiber.Wait(1000);
+//          Functions.PlayScannerAudio("PTT");
             Functions.PlayScannerAudio("RESPOND_CODE_2");
-            GameFiber.Wait(500);
-            Functions.PlayScannerAudio("END_3DPRT_PTT");
+//          Functions.PlayScannerAudio("END_3DPRT_PTT");
 
-            GameFiber.Wait(1000);
-            Functions.PlayScannerAudio("NOTIF_SOUND");
+//          Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayNotification("Respond ~b~Code 2~w~");
             Game.DisplayHelp("Press ~b~End~w~ to end the callout.", 5000);
 
@@ -142,7 +139,8 @@ namespace EveryDayCallouts.Callouts {
             base.OnCalloutNotAccepted();
         }
 
-        public override void Process() {
+        public override void Process()
+        {
 
             base.Process();
 
@@ -150,14 +148,11 @@ namespace EveryDayCallouts.Callouts {
 
                 Game.LogTrivial("(RandomCheck): If statement executed. User pressed END and canceled the callout.");
 
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+//              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayNotification("~g~Code 4~w~, return to patrol.");
-                GameFiber.Wait(500);
-                Functions.PlayScannerAudio("PTT");
-                GameFiber.Wait(500);
+//                Functions.PlayScannerAudio("PTT");
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-                GameFiber.Wait(500);
-                Functions.PlayScannerAudio("END_3DPRT_PTT");
+//                Functions.PlayScannerAudio("END_3DPRT_PTT");
                 End();
             }
 
@@ -172,74 +167,79 @@ namespace EveryDayCallouts.Callouts {
 
                 GangMemb2.PlayAmbientSpeech("Run! It's the police!");
                 Game.DisplaySubtitle("~r~Gang Member:~w~ Run! It's the police!", 2000);
+
                 Pursuit = Functions.CreatePursuit();
+
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb1);
                 GangMemb1.Tasks.FightAgainst(Game.LocalPlayer.Character);
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb2);
                 GangMemb2.Tasks.FightAgainst(Game.LocalPlayer.Character);
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb3);
                 GangMemb3.Tasks.FightAgainst(Game.LocalPlayer.Character);
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb4);
                 GangMemb4.Tasks.FightAgainst(Game.LocalPlayer.Character);
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb5);
                 GangMemb5.Tasks.FightAgainst(Game.LocalPlayer.Character);
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb6);
                 GangMemb6.Tasks.FightAgainst(Game.LocalPlayer.Character);
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb7);
                 GangMemb7.Tasks.AimWeaponAt(Game.LocalPlayer.Character, 10000);
+
                 Functions.AddPedToPursuit(Pursuit, GangMemb8);
                 GangMemb8.Tasks.FightAgainst(Game.LocalPlayer.Character);
 
 
+
+                //  IS PED ARRESTED,  STOPPED
                 if (Functions.IsPedArrested(GangMemb1)) {
                     GangMemb1.Tasks.ClearImmediately();
                 }
                 if (Functions.IsPedStoppedByPlayer(GangMemb1)) {
-                    GangMemb1.Tasks.ClearImmediately(); 
+                    GangMemb1.Tasks.ClearImmediately();
                 }
-                
                 if (Functions.IsPedArrested(GangMemb2)) {
                     GangMemb2.Tasks.ClearImmediately();
                 }
                 if (Functions.IsPedStoppedByPlayer(GangMemb2)) {
                     GangMemb2.Tasks.ClearImmediately();
                 }
-
                 if (Functions.IsPedArrested(GangMemb3)) {
                     GangMemb3.Tasks.ClearImmediately();
                 }
                 if (Functions.IsPedStoppedByPlayer(GangMemb3)) {
                     GangMemb3.Tasks.ClearImmediately();
                 }
-
                 if (Functions.IsPedArrested(GangMemb4)) {
                     GangMemb4.Tasks.ClearImmediately();
                 }
                 if (Functions.IsPedStoppedByPlayer(GangMemb4)) {
                     GangMemb4.Tasks.ClearImmediately();
                 }
-
                 if (Functions.IsPedArrested(GangMemb5)) {
                     GangMemb5.Tasks.ClearImmediately();
                 }
                 if (Functions.IsPedStoppedByPlayer(GangMemb5)) {
                     GangMemb5.Tasks.ClearImmediately();
                 }
-
                 if (Functions.IsPedArrested(GangMemb6)) {
                     GangMemb6.Tasks.ClearImmediately();
                 }
                 if (Functions.IsPedStoppedByPlayer(GangMemb6)) {
                     GangMemb6.Tasks.ClearImmediately();
                 }
-
                 if (Functions.IsPedArrested(GangMemb7)) {
                     GangMemb7.Tasks.ClearImmediately();
                 }
                 if (Functions.IsPedStoppedByPlayer(GangMemb7)) {
                     GangMemb7.Tasks.ClearImmediately();
                 }
-
                 if (Functions.IsPedArrested(GangMemb8)) {
                     GangMemb8.Tasks.ClearImmediately();
                 }
@@ -270,35 +270,34 @@ namespace EveryDayCallouts.Callouts {
         }
 
         public void CleanUp() {
-/*
-            if (GangMemb1.Exists()) {
-                GangMemb1.Dismiss();
-            }
-            if (GangMemb2.Exists()) {
-                GangMemb2.Dismiss();
-            }
-            if (GangMemb3.Exists()) {
-                GangMemb3.Dismiss();
-            }
-            if (GangMemb4.Exists()) {
-                GangMemb4.Dismiss();
-            }
-            if (GangMemb5.Exists()) {
-                GangMemb5.Dismiss();
-            }
-            if (GangMemb6.Exists()) {
-                GangMemb6.Dismiss();
-            }
-            if (GangMemb7.Exists()) {
-                GangMemb7.Dismiss();
-            }
-            if (GangMemb8.Exists()) {
-                GangMemb8.Dismiss();
-            }
-
-            if (SuspectsVehicle.Exists()) {
-                SuspectsVehicle.Dismiss();         ///// Not mandatory.
-            }  */
+            /*
+                        if (GangMemb1.Exists()) {
+                            GangMemb1.Dismiss();
+                        }
+                        if (GangMemb2.Exists()) {
+                            GangMemb2.Dismiss();
+                        }
+                        if (GangMemb3.Exists()) {
+                            GangMemb3.Dismiss();
+                        }
+                        if (GangMemb4.Exists()) {
+                            GangMemb4.Dismiss();
+                        }
+                        if (GangMemb5.Exists()) {
+                            GangMemb5.Dismiss();
+                        }
+                        if (GangMemb6.Exists()) {
+                            GangMemb6.Dismiss();
+                        }
+                        if (GangMemb7.Exists()) {
+                            GangMemb7.Dismiss();
+                        }
+                        if (GangMemb8.Exists()) {
+                            GangMemb8.Dismiss();
+                        }
+                        if (SuspectsVehicle.Exists()) {
+                            SuspectsVehicle.Dismiss();         ///// Not mandatory.
+                        }  */
             if (SuspectBlip1.Exists()) {
                 SuspectBlip1.Delete();
             }
@@ -314,32 +313,23 @@ namespace EveryDayCallouts.Callouts {
             if (SuspectBlip5.Exists()) {
                 SuspectBlip5.Delete();
             }
-            if (SuspectBlip6.Exists())
-            {
+            if (SuspectBlip6.Exists()) {
                 SuspectBlip6.Delete();
             }
-            if (SuspectBlip7.Exists())
-            {
+            if (SuspectBlip7.Exists()) {
                 SuspectBlip7.Delete();
             }
-            if (SuspectBlip8.Exists())
-            {
+            if (SuspectBlip8.Exists()) {
                 SuspectBlip8.Delete();
             }
             if (calloutArea.Exists()) {
                 calloutArea.Delete();
             }
 
+            calloutArea.DisableRoute();
+            
         }
 
     }
 }
-
-
-
-
-
-
-                
-
 

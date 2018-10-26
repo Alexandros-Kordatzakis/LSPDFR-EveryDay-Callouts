@@ -12,12 +12,14 @@ using System.Drawing;
 
 
 
-namespace EveryDayCallouts.Callouts {
+namespace EveryDayCallouts.Callouts
+{
 
     [CalloutInfo("LostCow", CalloutProbability.VeryHigh)]
 
 
-    class LostCow : Callout {
+    class LostCow : Callout
+    {
 
         private Ped Owner;
         private Ped Pet;
@@ -27,10 +29,10 @@ namespace EveryDayCallouts.Callouts {
 
         private Blip PetsBlip;
 
-        bool hasArrived;
+//      bool hasArrived;
         bool IsSpeechFinished = false;
-        bool OfficerFoundPet = false;
-        bool OfficerFoundPetandLeftScene = false;
+//      bool OfficerFoundPet = false;
+//      bool OfficerFoundPetandLeftScene = false;
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -53,15 +55,12 @@ namespace EveryDayCallouts.Callouts {
 
         public override bool OnCalloutAccepted() {
 
-            Functions.PlayScannerAudio("PTT");
-            GameFiber.Wait(1000);
+//          Functions.PlayScannerAudio("PTT");
             Functions.PlayScannerAudio("RESPOND_CODE_2");
-            GameFiber.Wait(500);
-            Functions.PlayScannerAudio("END_3DPRT_PTT");
-            hasArrived = false;
+//          Functions.PlayScannerAudio("END_3DPRT_PTT");
+//          hasArrived = false;
 
-            GameFiber.Wait(1000);
-            Functions.PlayScannerAudio("NOTIF_SOUND");
+//          Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayNotification("Respond ~b~Code 2~w~");
             Game.DisplayHelp("Press ~b~End~w~ to end the callout.", 5000);
             Game.DisplayNotification("Go on ~p~scene~w~ and try to find the ~p~lost~w~ pet from the owners info.");
@@ -106,22 +105,19 @@ namespace EveryDayCallouts.Callouts {
 
             if (Game.IsKeyDown(System.Windows.Forms.Keys.End)) {
 
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+//              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayNotification("~g~Code 4~w~, return to patrol.");
-                GameFiber.Wait(500);
-                Functions.PlayScannerAudio("PTT");
-                GameFiber.Wait(500);
+//              Functions.PlayScannerAudio("PTT");
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-                GameFiber.Wait(500);
-                Functions.PlayScannerAudio("END_3DPRT_PTT");
+//              Functions.PlayScannerAudio("END_3DPRT_PTT");
                 End();
             }
-            
+
             if (Game.LocalPlayer.Character.DistanceTo(OwnersBlip.Position) <= 20f) {
 
-                hasArrived = true;
+//              hasArrived = true;
                 Game.LogTrivial("(LostCow): Officer Arrived At Scene.");
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+//              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayHelp("Press ~p~Y~w~ when you reach the ~y~Caller~w~ to talk with him.");
                 Game.LogTrivial("(LostCow): Game Help Message Displayed.");
             }
@@ -145,7 +141,7 @@ namespace EveryDayCallouts.Callouts {
                 GameFiber.Wait(4000);
                 Game.DisplaySubtitle("~b~Officer~w~: A COW ?!", 4000);
                 GameFiber.Wait(4500);
-                Game.DisplaySubtitle("~b~Owner~w~: Yes sir! A cow.", 3500);
+                Game.DisplaySubtitle("~o~Owner~w~: Yes sir! A cow.", 3500);
                 GameFiber.Wait(4000);
                 Game.DisplaySubtitle("~b~Officer~w~: Ok... Are you sure it's not ~b~Brown~w~, with ~y~White~w~ marks?", 4000);
                 GameFiber.Wait(4500);
@@ -156,10 +152,10 @@ namespace EveryDayCallouts.Callouts {
                 IsSpeechFinished = true;
 
                 GameFiber.Wait(2500);
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+//              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayNotification("Search on the ~b~area~w~ to find the lost pet.");
                 GameFiber.Wait(4000);
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+  //            Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayHelp("For help, when you reach 20 meters close to ~b~Chop~w~, it's Blip will appear on your Radar.");
             }
 
@@ -169,22 +165,17 @@ namespace EveryDayCallouts.Callouts {
             // and will begin a short talk with Dispatcher. 
             if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(Pet.Position) <= 5f) {
 
-                OfficerFoundPet = true;
+//              OfficerFoundPet = true;
                 Game.LogTrivial("(Lost Cow) Officer found pet = true");
                 Game.LogTrivial("Officer found Pet.");
 
-                Functions.PlayScannerAudio("PTT");
-                GameFiber.Wait(500);
+//              Functions.PlayScannerAudio("PTT");
                 Game.DisplayNotification("Dispacth, I found the lost pet. Let the Owner know my location to come and take it.");
-                GameFiber.Wait(1000);
                 Functions.PlayScannerAudio("REPORT_RESPONSE_COPY");
-                GameFiber.Wait(500);
-                Functions.PlayScannerAudio("END_3DPRT_PTT");
+//              Functions.PlayScannerAudio("END_3DPRT_PTT");
 
-                GameFiber.Wait(2500);
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+//              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayHelp("You can leave the scene now. Dispatch will take care of everything else.");
-                GameFiber.Wait(5000);
                 Game.DisplayHelp("You can press ~b~END~w~ now. Good Job officer!");
             }
         }

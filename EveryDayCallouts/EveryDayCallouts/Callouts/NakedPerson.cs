@@ -38,48 +38,38 @@ namespace EveryDayCallouts.Callouts {
             hasArrived = false;
             Game.LogTrivial("(NakedPerson): Callout Message Displayed");
 
-            Functions.PlayScannerAudio("PTT");
-            GameFiber.Wait(500);
+//          Functions.PlayScannerAudio("PTT");
             Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_INDECENT_EXPOSURE IN_OR_ON_POSITION", SpawnPoint);
-            GameFiber.Wait(500);
-            Functions.PlayScannerAudio("END_3DPRT_PTT");
+//          Functions.PlayScannerAudio("END_3DPRT_PTT");
 
 
             return base.OnBeforeCalloutDisplayed();
         }
 
         public override bool OnCalloutAccepted() {
-            
+
             Game.LogTrivial("(NakedPerson): Callout Accepted");
 
-            Functions.PlayScannerAudio("PTT");
-            GameFiber.Wait(1000);
+//          Functions.PlayScannerAudio("PTT");
             Functions.PlayScannerAudio("RESPOND_CODE_2");
-            GameFiber.Wait(500);
-            Functions.PlayScannerAudio("END_3DPRT_PTT");
+//          Functions.PlayScannerAudio("END_3DPRT_PTT");
 
-            GameFiber.Wait(1000);
-            Functions.PlayScannerAudio("NOTIF_SOUND");
+//            Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayNotification("Respond ~b~Code 2~w~");
 
-            GameFiber.Wait(2500);
-            Functions.PlayScannerAudio("NOTIF_SOUND");
+//          Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayHelp("Press ~b~End~w~ to forcefully end the callout.", 5000);
 
-            GameFiber.Wait(1000);
-            Functions.PlayScannerAudio("NOTIF_SOUND");
-            GameFiber.Wait(500);
+//          Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayNotification("Go on ~p~scene~w~ and try to ~g~speak~w~ with the suspect.");
-            GameFiber.Wait(5500);
-            Functions.PlayScannerAudio("NOTIF_SOUND");
+//          Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayHelp("If it's a ~r~fake call~w~, just press ~b~End~w~ ");
 
             Suspect = new Ped(SpawnPoint);
             Suspect.BlockPermanentEvents = true;
             SuspectsBlip = Suspect.AttachBlip();
             SuspectsBlip.Color = (System.Drawing.Color.Green);
-            Game.LogTrivial("(NakedPerson): All Ped's actions loaded.");     /// Game.LogTrivial  that needs to be commented for not using memory.
-
+            Game.LogTrivial("(NakedPerson): All Ped's actions loaded.");
             SuspectsBlip.IsFriendly = false;
 
             calloutArea = new Blip(SpawnPoint, 40f);
@@ -92,7 +82,7 @@ namespace EveryDayCallouts.Callouts {
 
         public override void OnCalloutNotAccepted() {
 
-            Game.LogTrivial("(NakedPerson): Callout Not Accepted.");   
+            Game.LogTrivial("(NakedPerson): Callout Not Accepted.");
 
             End();
             base.OnCalloutNotAccepted();
@@ -105,14 +95,11 @@ namespace EveryDayCallouts.Callouts {
 
                 Game.LogTrivial("(Naked Person): Callout ENDED. User pressed END.");
 
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+//              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayNotification("~g~Code 4~w~, return to patrol.");
-                GameFiber.Wait(500);
-                Functions.PlayScannerAudio("PTT");
-                GameFiber.Wait(500);
+//              Functions.PlayScannerAudio("PTT");
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-                GameFiber.Wait(500);
-                Functions.PlayScannerAudio("END_3DPRT_PTT");
+//              Functions.PlayScannerAudio("END_3DPRT_PTT");
                 End();
             }
 
@@ -120,7 +107,7 @@ namespace EveryDayCallouts.Callouts {
 
                 hasArrived = true;
                 Game.LogTrivial("(NakedPerson): Officer Arrived At Scene");
-                Functions.PlayScannerAudio("NOTIF_SOUND");
+//              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayHelp("Press ~p~Y~w~ when you reach the ~y~Suspect~w~ to talk with him.");
 
             }
@@ -173,11 +160,10 @@ namespace EveryDayCallouts.Callouts {
             if (Suspect.Exists()) {
                 Suspect.Dismiss();
             }
-
             if (SuspectsBlip.Exists()) {
                 SuspectsBlip.Delete();
             }
-            if (calloutArea.Exists()){
+            if (calloutArea.Exists()) {
                 calloutArea.Delete();
             }
 
