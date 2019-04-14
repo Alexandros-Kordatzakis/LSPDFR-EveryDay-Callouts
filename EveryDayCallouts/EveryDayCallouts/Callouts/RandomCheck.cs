@@ -71,11 +71,12 @@ namespace EveryDayCallouts.Callouts {
 
 //          Functions.PlayScannerAudio("NOTIF_SOUND");
             Game.DisplayNotification("Respond ~b~Code 2~w~");
-            Game.DisplayHelp("Press ~b~End~w~ to end the callout.", 5000);
 
 
             SuspectsVehicle = new Vehicle("BURRITO", SpawnPoint, 1f);
             SuspectsVehicle.IsPersistent = true;
+
+            Game.DisplayHelp("Press ~b~End~w~ to end the callout.");
 
             GangMemb1 = new Ped("CSB_BallasOG", SpawnPoint, 1f);
             GangMemb1.BlockPermanentEvents = true;
