@@ -65,7 +65,7 @@ namespace EveryDayCallouts.Callouts {
 
         public override bool OnCalloutAccepted() {
 
-//          Functions.PlayScannerAudio("PTT");
+            Functions.PlayScannerAudio("PTT");
             Functions.PlayScannerAudio("RESPOND_CODE_2");
 //          Functions.PlayScannerAudio("END_3DPRT_PTT");
 

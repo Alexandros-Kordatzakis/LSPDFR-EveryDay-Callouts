@@ -30,7 +30,7 @@ namespace EveryDayCallouts {
             if (OnDuty) {
 
                 RegisterCallouts();
-                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.1.7.8~w~ loaded successfully! By ~g~Alexander K.~w~");
+                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.1.8.0~w~ loaded successfully! ~g~Alexander K.~w~");
             }
         }
 
@@ -42,7 +42,7 @@ namespace EveryDayCallouts {
             Functions.RegisterCallout(typeof(Callouts.NakedPerson));
         }
 
-        //   Albo's  Stuff From Here:
+        //   Albo's  Stuff   From Here:
 
         public static bool IsLSPDFRPluginRunning(string Plugin, Version minversion = null) {
 

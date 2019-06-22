@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using Rage;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
-using LSPD_First_Response.Engine.Scripting.Entities;
 using System.Drawing;
 
 
@@ -24,7 +23,6 @@ namespace EveryDayCallouts.Callouts {
         private LHandle Pursuit;
         bool hasArrived;
         bool IsSpe﻿echFinished;
-        private bool PursuitCreated = false;
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -142,10 +140,6 @@ namespace EveryDayCallouts.Callouts {
                 Game.DisplayHelp("You can now press ~b~END~w~ to be ~g~Code 4~w~.");
             }
 
-            if (PursuitCreated && !Functions.IsPursuitStillRunning(Pursuit)) {
-
-                End();
-            }
         }
 
         public override void End() {

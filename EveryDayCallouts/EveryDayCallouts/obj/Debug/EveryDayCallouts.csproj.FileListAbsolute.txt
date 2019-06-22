@@ -9,10 +9,12 @@ C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryD
 C:\Users\ALMANKA\source\repos\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.csproj.CopyComplete
 F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\EveryDayCallouts.dll
 F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\EveryDayCallouts.pdb
-F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\Arrest Manager.xml
-F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\Traffic Policer.xml
 F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.csprojAssemblyReference.cache
 F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.csproj.CoreCompileInputs.cache
 F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.csproj.CopyComplete
 F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.dll
 F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\obj\Debug\EveryDayCallouts.pdb
+F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\LSPD First Response.dll
+F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\RagePluginHookSDK.dll
+F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\Traffic Policer.dll
+F:\Coding-languages - EBooks\LSPDFR-GTA5   Plugins\LSPDFR-EveryDay-Callouts\EveryDayCallouts\EveryDayCallouts\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
