@@ -30,7 +30,7 @@ namespace EveryDayCallouts {
             if (OnDuty) {
 
                 RegisterCallouts();
-                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.1.8.0~w~ loaded successfully! ~g~Alexander K.~w~");
+                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.1.8.1~w~ loaded successfully! ~g~Alexander K.~w~");
             }
         }
 

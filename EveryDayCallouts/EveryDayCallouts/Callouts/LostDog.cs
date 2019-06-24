@@ -88,8 +88,6 @@ namespace EveryDayCallouts.Callouts {
             OwnersBlip.IsFriendly = true;
             PetsBlip.IsFriendly = true;
 
-            
-
 
             Game.LogTrivial("(LostDog): Owners And Pets actions loaded.");
 
@@ -122,7 +120,7 @@ namespace EveryDayCallouts.Callouts {
             }
 
             // If Player is <= 20m from the Owner and the hasArrived = flase, help is being Displayed and the Bool hasArrived will be  = true. 
-            if (Game.LocalPlayer.Character.DistanceTo(OwnerSpawnPoint) < 30f) {
+            if (Game.LocalPlayer.Character.DistanceTo(OwnerSpawnPoint) < 15f) {
 
                 hasArrived = true;
                 Game.LogTrivial("(LostDog): Officer Arrived At Scene.");
@@ -132,7 +130,7 @@ namespace EveryDayCallouts.Callouts {
             }
 
             // Now it starts the Dialogue. If Player is <8 meters from the Owner, Player can press "Y" and the dialogue will begin. 
-            if (hasArrived = true && Game.LocalPlayer.Character.DistanceTo(OwnerSpawnPoint) < 8f) {
+            if (hasArrived = true && Game.LocalPlayer.Character.DistanceTo(OwnerSpawnPoint) < 5f) {
 
                 while (!Game.IsKeyDown(System.Windows.Forms.Keys.Y))
                     GameFiber.Yield();
@@ -155,8 +153,11 @@ namespace EveryDayCallouts.Callouts {
                 GameFiber.Wait(4000);
                 Game.DisplaySubtitle("~b~Officer~w~: Well, I will do my best to find your pet! Hope it's somewhere here nearby... ", 4000);
                 GameFiber.Wait(4500);
+
                 IsSpeechFinished = true;
+                Game.LogTrivial("(LostDog): IsSpeechFinished = true;");
                 OfficerFoundPetandLeftScene = false;
+                Game.LogTrivial("(LostDog): OfficerFoundPetandLeftScene = false;");
 
 
                 GameFiber.Wait(2500);
@@ -164,17 +165,17 @@ namespace EveryDayCallouts.Callouts {
                 Game.DisplayNotification("Search on the ~b~area~w~ to find the lost pet.");
                 GameFiber.Wait(4000);
 //                Functions.PlayScannerAudio("NOTIF_SOUND");
-                Game.DisplayHelp("For help, ~b~Chop~w~ Blip is on your Radar.");
+                Game.DisplayHelp("For help, ~b~Chop's~w~ Blip is on your Radar.");
 
                 OwnersBlip.DisableRoute();
 
             }
 
  
-            if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(PetsSpawnPoint) <= 4f) {
+            if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(PetsSpawnPoint) < 4f) {
 
                 OfficerFoundPet = true;
-                Game.LogTrivialDebug("Officer found Pet.");
+                Game.LogTrivialDebug("(LostDog): Officer Found Pet.");
 
 //                Functions.PlayScannerAudio("PTT");
                 Game.DisplayNotification("Dispacth, I see the lost pet. Let the Owner know my location to come and take it.");
@@ -184,9 +185,10 @@ namespace EveryDayCallouts.Callouts {
 //                Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayHelp("You can leave the scene now. Dispatch will take care of everything else.");
                 OfficerFoundPetandLeftScene = true;
+                Game.LogTrivial("(LostDog): OfficerFoundPetandLeftScene = true;");
             }
 
-            if (OfficerFoundPetandLeftScene = true && Game.LocalPlayer.Character.DistanceTo(PetsSpawnPoint) < 15f) {
+            if (OfficerFoundPetandLeftScene = true && Game.LocalPlayer.Character.DistanceTo(PetsSpawnPoint) > 15f) {
 
                 Game.LogTrivial("Officer Left the Scene from the Pet.");
 //              Game.DisplayNotification("You can press ~b~End~w~ now.")

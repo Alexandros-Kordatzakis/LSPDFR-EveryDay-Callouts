@@ -151,12 +151,14 @@ namespace EveryDayCallouts.Callouts
                 GameFiber.Wait(4500);
                 IsSpeechFinished = true;
 
+                OwnersBlip.DisableRoute();
+
                 GameFiber.Wait(2500);
 //              Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayNotification("Search on the ~b~area~w~ to find the lost pet.");
                 GameFiber.Wait(4000);
   //            Functions.PlayScannerAudio("NOTIF_SOUND");
-                Game.DisplayHelp("For help, when you reach 20 meters close to ~b~Chop~w~, it's Blip will appear on your Radar.");
+                Game.DisplayHelp("For help, when you reach 20 meters close to the ~b~Cow~w~, it's Blip will appear on your Radar.");
             }
 
 
