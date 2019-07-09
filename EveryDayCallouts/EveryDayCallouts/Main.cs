@@ -30,7 +30,7 @@ namespace EveryDayCallouts {
             if (OnDuty) {
 
                 RegisterCallouts();
-                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.1.8.1~w~ loaded successfully! ~g~Alexander K.~w~");
+                Game.DisplayNotification("~r~EveryDay~w~ ~p~Callouts~w~ ~y~v0.1.8.2~w~ loaded successfully! ~g~Alexander K.~w~");
             }
         }
 
@@ -42,6 +42,9 @@ namespace EveryDayCallouts {
             Functions.RegisterCallout(typeof(Callouts.NakedPerson));
         }
 
+
+        /* Commented, as I see no one ever uses that test anymore. 
+         
         //   Albo's  Stuff   From Here:
 
         public static bool IsLSPDFRPluginRunning(string Plugin, Version minversion = null) {
@@ -59,6 +62,8 @@ namespace EveryDayCallouts {
         }
 
         //  To here.
+
+        */
 
     }
 }

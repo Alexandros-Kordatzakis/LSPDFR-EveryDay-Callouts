@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
+using System.Timers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Rage;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
-using LSPD_First_Response.Engine.Scripting.Entities;
-using System.Drawing;
+using LSPD_First_Response.Engine.Scripting;
+using Timer = System.Timers.Timer;
+
 
 
 
@@ -22,14 +25,21 @@ namespace EveryDayCallouts.Callouts {
 
         private Ped Owner;
         private Ped Pet;
+
         private Vector3 OwnerSpawnPoint;
         private Vector3 PetsSpawnPoint;
+
         private Blip OwnersBlip;
         private Blip PetsBlip;
+
         bool hasArrived;
         bool IsSpe﻿echFinished = false;
         bool OfficerFoundPet = false;
         bool OfficerFoundPetandLeftScene = false;
+
+
+        private readonly string[] OnNotAcceptedAudio = { "AI_RESPOND_01", "AI_RESPOND_02", "AI_RESPOND_03", "AI_RESPOND_04", "AI_RESPOND_05" };
+        private readonly string[] End3rdPRTAudio = { "END_3DPRT_PTT_01", "END_3DPRT_PTT_02", "END_3DPRT_PTT_03", "END_3DPRT_PTT_04", "END_3DPRT_PTT_05" };
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -43,13 +53,14 @@ namespace EveryDayCallouts.Callouts {
             // Callout will be displayed now on screen.
             CalloutMessage = "Lost Dog(Testing)";
             CalloutPosition = OwnerSpawnPoint;
+            ShowCalloutAreaBlipBeforeAccepting(OwnerSpawnPoint, 50f);   
 
             Game.LogTrivial("(LostDog): Callout Message Displayed");
             // Callout Displayed and all Functions (like Logs or Booleans) are in action.
 
 //            Functions.PlayScannerAudio("PTT");
             Functions.PlayScannerAudioUsingPosition("IN_OR_ON_POSITION", OwnerSpawnPoint);
-//            Functions.PlayScannerAudio("END_3DPRT_PTT");
+            Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
 
 
             return base.OnBeforeCalloutDisplayed();
@@ -59,7 +70,7 @@ namespace EveryDayCallouts.Callouts {
 
             Game.LogTrivialDebug("(LostDog): Callout Accepted.");
             Functions.PlayScannerAudio("RESPOND_CODE_2");
-            Functions.PlayScannerAudio("END_3DPRT_PTT");
+            Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
             hasArrived = false;
             OfficerFoundPet = false;
 
@@ -99,6 +110,8 @@ namespace EveryDayCallouts.Callouts {
             // Callout not accepted by User. Cleaning up everthing that spawned and Blips etc.   CleanUp() Function.
             Game.LogTrivial("(LostDog): Callout Not Accepted  (By User)");
 
+            Functions.PlayScannerAudio(MathHelper.Choose(OnNotAcceptedAudio));
+
             CleanUp();
             base.OnCalloutNotAccepted();
         }
@@ -115,7 +128,7 @@ namespace EveryDayCallouts.Callouts {
                 Game.DisplayNotification("~g~Code 4~w~, return to patrol.");
 //               Functions.PlayScannerAudio("PTT");
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-                Functions.PlayScannerAudio("END_3DPRT_PTT");
+                Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
                 End();
             }
 
@@ -180,9 +193,9 @@ namespace EveryDayCallouts.Callouts {
 //                Functions.PlayScannerAudio("PTT");
                 Game.DisplayNotification("Dispacth, I see the lost pet. Let the Owner know my location to come and take it.");
                 Functions.PlayScannerAudio("REPORT_RESPONSE_COPY");
-//                Functions.PlayScannerAudio("END_3DPRT_PTT");
+                Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
 
-//                Functions.PlayScannerAudio("NOTIF_SOUND");
+                //                Functions.PlayScannerAudio("NOTIF_SOUND");
                 Game.DisplayHelp("You can leave the scene now. Dispatch will take care of everything else.");
                 OfficerFoundPetandLeftScene = true;
                 Game.LogTrivial("(LostDog): OfficerFoundPetandLeftScene = true;");
