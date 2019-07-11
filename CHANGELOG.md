@@ -4,9 +4,28 @@
 
 
 #### All notable changes to this project will be documented in this file.   
-###### {This changelog may change to [Keep A Changelog](https://keepachangelog.com/en/1.0.0/) fromat in the future. }
+###### [This changelog may change to [Keep A Changelog](https://keepachangelog.com/en/1.0.0/) fromat in the future. ]
 
 <br />
+
+
+## ~ Version 1.8.3 - 2019/07/11 ~
+
+### Callout: LostDog &nbsp; {
+
+* Cleaned up some code.
+
+* Fixed a lot of old Framework compatibility problems with LSPDFR.
+
+* Added more Notification Sounds.
+
+* Fixed major Bug that caused the callout to Crash/Stop when Player <15 m. to the Ped.
+
+### **}**
+
+
+<br /> 
+
 
 ## ~ Version 1.8.2 - 2019/07/09 ~
 
@@ -31,3 +50,6 @@
 
 * Added CHANGELOG!
 
+
+
+&nbsp;
