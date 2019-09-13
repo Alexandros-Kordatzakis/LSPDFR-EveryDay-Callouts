@@ -9,6 +9,25 @@
 <br />
 
 
+## ~ Version 1.8.7 - 2019/09/13 ~
+
+
+
+### Callout: NakedPerson &nbsp; {
+* Added new Dispatch and Notification sounds. 
+* Fixed major Code Bugs and Typos.
+* Changed Dialogue Scenario.   
+
+### **}**
+
+### Callout: LostDog &nbsp; {
+* Updated minor code
+* Suspended for now. 
+### **}**
+
+<br />
+
+
 ## ~ Version 1.8.3 - 2019/07/11 ~
 
 ### Callout: LostDog &nbsp; {
