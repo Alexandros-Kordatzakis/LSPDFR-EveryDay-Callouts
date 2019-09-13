@@ -39,9 +39,9 @@ namespace EveryDayCallouts.Callouts {
 
 
         private readonly string[] OnNotAcceptedAudio = { "AI_RESPOND_01", "AI_RESPOND_02", "AI_RESPOND_03", "AI_RESPOND_04", "AI_RESPOND_05" };
-        private readonly string[] End3rdPRTAudio = { "END_3DPRT_PTT_01", "END_3DPRT_PTT_02", "END_3DPRT_PTT_03", "END_3DPRT_PTT_04", "END_3DPRT_PTT_05" };
+        private readonly string[] End3rdPRTAudio = { "END_3DPRT_PTT_01", "END_3DPRT_PTT_02", "END_3DPRT_PTT_03", "END_3DPRT_PTT_04", "END_3DPRT_PTT_05", "END_3DPRT_06" };
         private readonly string[] NotiffSound = { "NOTIF_SOUND_1", "NOTIF_SOUND_2" };
-        private readonly string[] PTTAudio = { "PTT_1", "PTT_2" };
+        private readonly string[] PTTAudio = { "PTT_1", "PTT_2", "PTT_3" };
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -56,7 +56,7 @@ namespace EveryDayCallouts.Callouts {
             CalloutPosition = OwnerSpawnPoint;
 
             Game.LogTrivialDebug("(LostDog Debug): Callout Message Displayed");
-            // Callout Displayed and all Functions (like Logs or Booleans) are in action.
+            // Callout Displayed and all Functions (Logs or Booleans) are in action.
 
             Functions.PlayScannerAudio(MathHelper.Choose(PTTAudio));
             Functions.PlayScannerAudioUsingPosition("IN_OR_ON_POSITION", OwnerSpawnPoint);
@@ -82,21 +82,17 @@ namespace EveryDayCallouts.Callouts {
 
             // Making new Ped and it's Blip.
             Owner = new Ped(OwnerSpawnPoint);
-            Owner.BlockPermanentEvents = true;
+            Owner.IsPersistent = true;
             OwnersBlip = Owner.AttachBlip();
-            OwnersBlip.Color = (System.Drawing.Color.Yellow);
+            OwnersBlip.Color = Color.Yellow;
             OwnersBlip.EnableRoute(System.Drawing.Color.Yellow);
 
 
             // Making new Pet.
             Pet = new Ped("A_C_Chop", PetsSpawnPoint, 1f);
-            Pet.BlockPermanentEvents = true;
+            Pet.IsPersistent = true;
             PetsBlip = Pet.AttachBlip();
-            PetsBlip.Color = (System.Drawing.Color.White);
-
-
-            OwnersBlip.IsFriendly = true;
-            PetsBlip.IsFriendly = true;
+            PetsBlip.Color = Color.White;
 
 
             Game.LogTrivialDebug("(LostDog Debug): Owners and Pets actions loaded.");
@@ -142,9 +138,10 @@ namespace EveryDayCallouts.Callouts {
 
                 Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
                 Game.DisplayHelp("Press ~p~Y~w~ when you reach the ~b~Caller~w~ to talk with him.", 2500);
+                OwnersBlip.DisableRoute();
 
             }
-                                
+
             // Now it starts the Dialogue. If Player is <8 meters from the Owner, Player can press "Y" and the dialogue will begin. 
             if (hasArrived = true && Game.LocalPlayer.Character.DistanceTo(OwnerSpawnPoint) < 5f) {
 
@@ -172,8 +169,6 @@ namespace EveryDayCallouts.Callouts {
 
                 IsSpeechFinished = true;
                 Game.LogTrivial("(LostDog): IsSpeechFinished = true;");
-                OfficerFoundPetandLeftScene = false;
-                Game.LogTrivial("(LostDog): OfficerFoundPetandLeftScene = false;");
 
 
                 GameFiber.Wait(2500);
@@ -183,12 +178,10 @@ namespace EveryDayCallouts.Callouts {
                 Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
                 Game.DisplayHelp("For help, ~b~Chop's~w~ Blip is on your Radar.");
 
-                OwnersBlip.DisableRoute();
-
             }
 
  
-            if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(PetsSpawnPoint) < 4f) {
+            if (IsSpeechFinished = true && Game.LocalPlayer.Character.DistanceTo(PetsBlip) < 4f) {
 
                 OfficerFoundPet = true;
                 Game.LogTrivialDebug("(LostDog Debug): Officer Found Pet.");
@@ -201,11 +194,18 @@ namespace EveryDayCallouts.Callouts {
 
                 Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
                 Game.DisplayHelp("You can leave the scene now. Dispatch will take care of everything else.");
-                OfficerFoundPetandLeftScene = true;
-                Game.LogTrivial("(LostDog Log): OfficerFoundPetandLeftScene = true;");
+                
             }
 
-            if (OfficerFoundPetandLeftScene = true && Game.LocalPlayer.Character.DistanceTo(PetsSpawnPoint) > 15f) {
+            if (OfficerFoundPet = true && Game.LocalPlayer.Character.DistanceTo(PetsBlip) > 8f) {
+
+                OfficerFoundPetandLeftScene = true;
+                Game.LogTrivial("(LostDog Log): OfficerFoundPetandLeftScene = true;");
+
+            } 
+
+
+            if (OfficerFoundPetandLeftScene = true && Game.LocalPlayer.Character.DistanceTo(PetsBlip) > 15f) {
 
                 Game.LogTrivialDebug("(LostDog Debug): Officer Left the Scene from the Pet.");
                 Game.DisplayNotification("You can press ~b~End~w~ now.");
@@ -239,7 +239,7 @@ namespace EveryDayCallouts.Callouts {
                 PetsBlip.Delete();
             }
 
+            OwnersBlip.DisableRoute();
         }
-
     }
 }

@@ -81,9 +81,6 @@ namespace EveryDayCallouts.Callouts
             PetsBlip.Color = (System.Drawing.Color.Blue);
 
 
-            OwnersBlip.IsFriendly = true;
-            PetsBlip.IsFriendly = true;
-
             OwnersBlip.EnableRoute(System.Drawing.Color.Purple);
 
 

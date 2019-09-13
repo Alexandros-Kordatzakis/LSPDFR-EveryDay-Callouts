@@ -78,6 +78,7 @@
     <Compile Include="Callouts\LostDog.cs" />
     <Compile Include="Callouts\NakedPerson.cs" />
     <Compile Include="Callouts\RandomCheck.cs" />
+    <Compile Include="Callouts\Vandalism.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

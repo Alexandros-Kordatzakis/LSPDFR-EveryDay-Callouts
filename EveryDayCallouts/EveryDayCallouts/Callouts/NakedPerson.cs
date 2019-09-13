@@ -21,12 +21,20 @@ namespace EveryDayCallouts.Callouts {
     class NakedPerson : Callout {
 
         private Ped Suspect;
+
         private Vector3 SpawnPoint;
+
         private Blip SuspectsBlip;
         private Blip calloutArea;
-        private LHandle Pursuit;
+
         bool hasArrived;
         bool IsSpe﻿echFinished;
+
+        private readonly string[] OnNotAcceptedAudio = { "AI_RESPOND_01", "AI_RESPOND_02", "AI_RESPOND_03", "AI_RESPOND_04", "AI_RESPOND_05" };
+        private readonly string[] End3rdPRTAudio = { "END_3DPRT_PTT_01", "END_3DPRT_PTT_02", "END_3DPRT_PTT_03", "END_3DPRT_PTT_04", "END_3DPRT_PTT_05", "END_3DPRT_06" };
+        private readonly string[] NotiffSound = { "NOTIF_SOUND_1", "NOTIF_SOUND_2" };
+        private readonly string[] PTTAudio = { "PTT_1", "PTT_2", "PTT_3" };
+
 
 
         public override bool OnBeforeCalloutDisplayed() {
@@ -37,12 +45,11 @@ namespace EveryDayCallouts.Callouts {
 
             CalloutMessage = "Naked Person(Testing)";
             CalloutPosition = SpawnPoint;
-            hasArrived = false;
             Game.LogTrivial("(NakedPerson): Callout Message Displayed");
 
-//          Functions.PlayScannerAudio("PTT");
+            Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
             Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_INDECENT_EXPOSURE IN_OR_ON_POSITION", SpawnPoint);
-//          Functions.PlayScannerAudio("END_3DPRT_PTT");
+            Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
 
 
             return base.OnBeforeCalloutDisplayed();
@@ -51,33 +58,34 @@ namespace EveryDayCallouts.Callouts {
         public override bool OnCalloutAccepted() {
 
             Game.LogTrivial("(NakedPerson): Callout Accepted");
+            hasArrived = false;
 
-//          Functions.PlayScannerAudio("PTT");
+            Functions.PlayScannerAudio(MathHelper.Choose(PTTAudio));
             Functions.PlayScannerAudio("RESPOND_CODE_2");
-//          Functions.PlayScannerAudio("END_3DPRT_PTT");
+            Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
 
-//            Functions.PlayScannerAudio("NOTIF_SOUND");
+            Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
             Game.DisplayNotification("Respond ~b~Code 2~w~");
 
-//          Functions.PlayScannerAudio("NOTIF_SOUND");
-            Game.DisplayHelp("Press ~b~End~w~ to forcefully end the callout.", 5000);
+            Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
+            Game.DisplayHelp("Press ~b~End~s~ to end the callout", 6500);
 
-//          Functions.PlayScannerAudio("NOTIF_SOUND");
-            Game.DisplayNotification("Go on ~p~scene~w~ and try to ~g~speak~w~ with the suspect.");
-//          Functions.PlayScannerAudio("NOTIF_SOUND");
-            Game.DisplayHelp("If it's a ~r~fake call~w~, just press ~b~End~w~ ");
+            Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
+            Game.DisplayNotification("Get on ~p~scene~w~ and try to ~g~speak~w~ with the suspect.");
+            Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
+            Game.DisplayHelp("If it's a ~r~fake call~w~, press ~b~End~w~ ");
+
 
             Suspect = new Ped(SpawnPoint);
-            Suspect.BlockPermanentEvents = true;
+            Suspect.IsPersistent = true;
             SuspectsBlip = Suspect.AttachBlip();
-            SuspectsBlip.Color = (System.Drawing.Color.Green);
-            Game.LogTrivial("(NakedPerson): All Ped's actions loaded.");
-            SuspectsBlip.IsFriendly = false;
+            SuspectsBlip.Color = Color.Yellow;
+            Game.LogTrivial("(NakedPerson): All Peds' actions loaded.");
 
             calloutArea = new Blip(SpawnPoint, 40f);
             calloutArea.Color = (System.Drawing.Color.Yellow);
             calloutArea.Alpha = 0.5f;
-            calloutArea.EnableRoute(System.Drawing.Color.Yellow);
+            calloutArea.EnableRoute(Color.Yellow);
 
             return base.OnCalloutAccepted();
         }
@@ -85,6 +93,8 @@ namespace EveryDayCallouts.Callouts {
         public override void OnCalloutNotAccepted() {
 
             Game.LogTrivial("(NakedPerson): Callout Not Accepted.");
+
+            Functions.PlayScannerAudio(MathHelper.Choose(OnNotAcceptedAudio));
 
             End();
             base.OnCalloutNotAccepted();
@@ -95,26 +105,27 @@ namespace EveryDayCallouts.Callouts {
 
             if (Game.IsKeyDown(System.Windows.Forms.Keys.End)) {
 
-                Game.LogTrivial("(Naked Person): Callout ENDED. User pressed END.");
+                Game.LogTrivial("(Naked Person): Callout *ENDED*. User pressed END.");
 
-//              Functions.PlayScannerAudio("NOTIF_SOUND");
+                Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
                 Game.DisplayNotification("~g~Code 4~w~, return to patrol.");
-//              Functions.PlayScannerAudio("PTT");
+                Functions.PlayScannerAudio(MathHelper.Choose(PTTAudio));
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS WE_ARE_CODE_4");
-//              Functions.PlayScannerAudio("END_3DPRT_PTT");
+                Functions.PlayScannerAudio(MathHelper.Choose(End3rdPRTAudio));
                 End();
             }
 
-            if (Game.LocalPlayer.Character.DistanceTo(Suspect.Position) <= 20f && !hasArrived) {
+            if (Game.LocalPlayer.Character.DistanceTo(Suspect.Position) < 20f && hasArrived == false) {
 
-                hasArrived = true;
                 Game.LogTrivial("(NakedPerson): Officer Arrived At Scene");
-//              Functions.PlayScannerAudio("NOTIF_SOUND");
+                Functions.PlayScannerAudio(MathHelper.Choose(NotiffSound));
                 Game.DisplayHelp("Press ~p~Y~w~ when you reach the ~y~Suspect~w~ to talk with him.");
+                hasArrived = true;
+                IsSpe﻿echFinished = false;
 
             }
 
-            if (!IsSpe﻿echFinished && Game.LocalPlayer.Character.DistanceTo(Suspect.Position) < 8f) {
+            if (IsSpe﻿echFinished == false && Game.LocalPlayer.Character.DistanceTo(Suspect.Position) < 5f) {
 
                 while (!Game.IsKeyDown(System.Windows.Forms.Keys.Y))
                     GameFiber.Yield();
@@ -123,25 +134,24 @@ namespace EveryDayCallouts.Callouts {
                 Suspect.Tasks.Clear();
                 Suspect.Tasks.StandStill(30000);
 
-                Game.DisplaySubtitle("~b~Officer~w~: Hello! What's going on?", 4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Hello! What's going on? Are you the caller?", 4000);
                 GameFiber.Wait(4500);
                 Game.DisplaySubtitle("~o~Suspect~w~: I don't know anything officer. What's happening?", 3500);
                 GameFiber.Wait(4000);
                 Game.DisplaySubtitle("~b~Officer~w~: We got a call for an incident exposure on this exact location. Have you seen anyone? ", 4000);
                 GameFiber.Wait(4500);
-                Game.DisplaySubtitle("~o~Suspect~w~: No officer, I'm sorry. As you can see, no one here is ~r~naked~w~.. It must be a fake call.", 3500);
+                Game.DisplaySubtitle("~o~Suspect~w~: Unfortunately no Officer. Sorry. As you can see, no one here is ~y~naked~w~.. It must have been a prank call...", 3500);
                 GameFiber.Wait(4000);
-                Game.DisplaySubtitle("~b~Officer~w~: Yes. That's what I think too. ", 4000);
+                Game.DisplaySubtitle("~b~Officer~w~: Yes. That's how it looks like.", 4000);
                 GameFiber.Wait(4500);
                 Game.DisplaySubtitle("~b~Officer~w~: Alright. Thank you for your time. Have a nice day!", 4000);
                 GameFiber.Wait(4500);
                 Game.DisplaySubtitle("~o~Suspect~w~: Thank you ~b~Officer~w~! Take care!", 3500);
-                GameFiber.Wait(4000);
                 IsSpeechFinished = true;
-
                 GameFiber.Wait(4500);
+
                 Functions.PlayScannerAudio("NOTIF_SOUND");
-                Game.DisplayHelp("You can now press ~b~END~w~ to be ~g~Code 4~w~.");
+                Game.DisplayHelp("You can now press ~b~END~w~ to become ~g~available~w~.");
             }
 
         }
